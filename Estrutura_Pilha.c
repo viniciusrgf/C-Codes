@@ -1,61 +1,83 @@
 #include <stdio.h>
-#include <stdlib.h>
-
-struct Node{
- int num;
- struct Node *prox;
+ 
+struct stack{
+    int pilha[6];
+    int cabeca;
 };
-typedef struct Node node;
-int tam;
-void inicia(node *PILHA);
-int main(void)
+typedef struct stack STK;
+STK s;
+ 
+void empilhar(void);
+int  desempilhar(void);
+void imprimir(void);
+ 
+void main ()
 {
- node *PILHA = (node *) malloc(sizeof(node));
- char op[20];
-   scanf("%s",op);
+    int choice;
+    s.cabeca = -1;
+    do{
+        printf ("1- para empilhar\n");
+        printf ("2- para desempilhar\n");
+        printf ("3 para exibir\n");
+        printf ("4 para terminar\n");
+        scanf    ("%d", &choice);
+       
+        switch (choice){
+        case 1:
+            empilhar();
+            break;
+        case 2:
+            desempilhar();
+            break;
+        case 3:
+            imprimir();
+            break;
+        }
+fflush(stdin);
+        scanf    ("%d", &choice);
+       
+    }
+    while(choice != 4);
+        return;
    
- if(strcmp(op, "Empilhar") == 0){
-     node *novo=aloca();
- novo->prox = NULL;
-
- if(vazia(PILHA))
-  PILHA->prox=novo;
- else{
-  node *tmp = PILHA->prox;
-
-  while(tmp->prox != NULL)
-   tmp = tmp->prox;
-
-  tmp->prox = novo;
- }
- tam++;
-     
- }
- if(strcmp(op, "Exibir") == 0){
-     if(vazia(PILHA)){
-  printf("PILHA vazia!\n\n");
-  return ;
- }
-
- node *tmp;
- tmp = PILHA->prox;
- printf("PILHA:");
- while( tmp != NULL){
-  printf("%5d", tmp->num);
-  tmp = tmp->prox;
- }
- printf("\n        ");
- int count;
- for(count=0 ; count < tam ; count++)
-  printf("  ^  ");
- printf("\nOrdem:");
- for(count=0 ; count < tam ; count++)
-  printf("%5d", count+1);
-
-
- printf("\n\n");
- }
 }
-
-
-
+void imprimir (){
+    int i;
+    if (s.cabeca == -1){
+        printf ("Vazia\n");
+       
+    }
+    else{
+        printf ("Elementos na pilha: \n");
+        for (i = s.cabeca; i >= 0; i--){
+            printf ("%d\n", s.pilha[i]);
+        }
+    }
+}
+void empilhar (){
+    int num;
+    if (s.cabeca == (6 - 1)){
+        printf ("Cheia\n");
+       
+    }
+    else{
+        printf ("Insira o numero: \n");
+        scanf ("%d", &num);
+        s.cabeca = s.cabeca + 1;
+        s.pilha[s.cabeca] = num;
+    }
+   
+}int desempilhar (){
+    int num;
+    if (s.cabeca == - 1){
+        printf ("vazia\n");
+        return (s.cabeca);
+    }
+    else{
+        num = s.pilha[s.cabeca];
+        printf ("Elemento retirado");
+        s.cabeca = s.cabeca - 1;
+    }
+    return(num);
+   
+}
